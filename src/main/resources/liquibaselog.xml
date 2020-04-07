@@ -1,0 +1,122 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Maksym" id="init-DB">
+
+        <createTable tableName="customers">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialty" type="VARCHAR(30)"/>
+            <column name="account_id" type="BIGINT">
+            </column>
+        </createTable>
+
+        <createTable tableName="accounts">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account_data" type="VARCHAR(30)"/>
+            <column name="balance" type="DECIMAL"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="account_id"
+                                 baseTableName="customers"
+                                 constraintName="fk_customer_account"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="accounts"/>
+
+
+        <createTable tableName="transactions">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="amount" type="DECIMAL"/>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="account_id"
+                                 baseTableName="transactions"
+                                 constraintName="fk_transaction_account"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="accounts"/>
+
+    </changeSet>
+
+
+    <changeSet author="Maksym" id="populate-DB">
+
+        <insert tableName="accounts">
+            <column name="account_data" value="Peters_Account"/>
+            <column name="balance" value="10000"/>
+        </insert>
+
+        <insert tableName="accounts">
+            <column name="account_data" value="Ivans_Account"/>
+            <column name="balance" value="20000"/>
+        </insert>
+
+        <insert tableName="accounts">
+            <column name="account_data" value="Sergeis_Account"/>
+            <column name="balance" value="30000"/>
+        </insert>
+
+        <insert tableName="transactions">
+            <column name="amount" value="100"/>
+            <column name="account_id" value="1"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="amount" value="-200"/>
+            <column name="account_id" value="1"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="amount" value="300"/>
+            <column name="account_id" value="2"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="amount" value="-400"/>
+            <column name="account_id" value="2"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="amount" value="500"/>
+            <column name="account_id" value="3"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="amount" value="-600"/>
+            <column name="account_id" value="3"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="first_name" value="Peter"/>
+            <column name="last_name" value="Petrov"/>
+            <column name="specialty" value="accountant"/>
+            <column name="account_id" value="1"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="first_name" value="Ivan"/>
+            <column name="last_name" value="Ivanov"/>
+            <column name="specialty" value="seller"/>
+            <column name="account_id" value="2"/>
+        </insert>
+
+        <insert tableName="customers">
+            <column name="first_name" value="Sergei"/>
+            <column name="last_name" value="Sergeev"/>
+            <column name="specialty" value="manager"/>
+            <column name="account_id" value="3"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
