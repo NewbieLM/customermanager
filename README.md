@@ -27,7 +27,7 @@ To run this application you must:
 5. build project "mvn clean install" and start Tomcat server "mvn tomcat7:run"
 
 ## URL examples
-###Customer
+#### Customer
 <br/>Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/customer
@@ -48,7 +48,7 @@ Delete
 <br/>Method: DELETE
 <br/>URL: http://localhost:8080/customer?id=12345
 
-###Account
+#### Account
 <br/>Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/account
@@ -69,7 +69,7 @@ Delete
 <br/>Method: DELETE
 <br/>URL: http://localhost:8080/account?id=1234
 
-###Transaction
+#### Transaction
 <br/>Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/transaction
