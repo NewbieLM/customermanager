@@ -28,7 +28,7 @@ To run this application you must:
 
 ## URL examples
 #### Customer
-<br/>Get all
+Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/customer
 
@@ -49,7 +49,7 @@ Delete
 <br/>URL: http://localhost:8080/customer?id=12345
 
 #### Account
-<br/>Get all
+Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/account
 
@@ -70,7 +70,7 @@ Delete
 <br/>URL: http://localhost:8080/account?id=1234
 
 #### Transaction
-<br/>Get all
+Get all
 <br/>Method: GET
 <br/>URL: http://localhost:8080/transaction
 
