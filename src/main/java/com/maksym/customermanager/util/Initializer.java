@@ -17,6 +17,7 @@ public class Initializer implements ServletContextListener {
     private static volatile SessionFactory sessionFactory;
     private static CustomerRepository customerRepository;
     private static AccountRepository accountRepository;
+    private static TransactionRepository transactionRepository;
 
     public void contextInitialized(ServletContextEvent sce) {
         init();
@@ -28,9 +29,7 @@ public class Initializer implements ServletContextListener {
         }
     }
 
-    private static TransactionRepository transactionRepository;
-
-    public static void init() {
+    private static void init() {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         customerRepository = new HibernateCustomerRepositoryImpl();

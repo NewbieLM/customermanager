@@ -10,10 +10,27 @@
         <servlet-name>CustomerController</servlet-name>
         <servlet-class>com.maksym.customermanager.controller.CustomerController</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>CustomerController</servlet-name>
         <url-pattern>/customer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccountController</servlet-name>
+        <servlet-class>com.maksym.customermanager.controller.AccountController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccountController</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TransactionController</servlet-name>
+        <servlet-class>com.maksym.customermanager.controller.TransactionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionController</servlet-name>
+        <url-pattern>/transaction</url-pattern>
     </servlet-mapping>
 
     <listener>

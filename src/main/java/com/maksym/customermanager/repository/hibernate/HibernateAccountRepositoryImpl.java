@@ -2,6 +2,7 @@ package com.maksym.customermanager.repository.hibernate;
 
 import com.maksym.customermanager.model.Account;
 import com.maksym.customermanager.repository.AccountRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -21,9 +22,10 @@ public class HibernateAccountRepositoryImpl implements AccountRepository {
 
     public Account get(Long accountId) {
         Session session = getSession();
-        Query query = session.createQuery("FROM Account a JOIN FETCH a.transactions WHERE a.id=: id");
-        query.setParameter("id", accountId);
-        Account account = (Account) query.getSingleResult();
+        Account account = session.get(Account.class, accountId);
+        if(account != null) {
+            Hibernate.initialize(account.getTransactions());
+        }
         session.close();
         return account;
     }

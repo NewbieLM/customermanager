@@ -2,6 +2,7 @@ package com.maksym.customermanager.repository.hibernate;
 
 import com.maksym.customermanager.model.Customer;
 import com.maksym.customermanager.repository.CustomerRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -21,9 +22,10 @@ public class HibernateCustomerRepositoryImpl implements CustomerRepository {
 
     public Customer get(Long customerId) {
         Session session = getSession();
-        Query query = session.createQuery("FROM Customer c JOIN FETCH c.account WHERE c.id=:id");
-        query.setParameter("id", customerId);
-        Customer customer = (Customer) query.getSingleResult();
+        Customer customer = session.get(Customer.class, customerId);
+        if(customer != null) {
+            Hibernate.initialize(customer.getAccount());
+        }
         session.close();
         return customer;
     }

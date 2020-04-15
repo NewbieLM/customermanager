@@ -1,7 +1,8 @@
 package com.maksym.customermanager.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "customers")
@@ -16,7 +17,7 @@ public class Customer extends BaseEntity {
     @Column(name = "specialty", nullable = false)
     private String specialty;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -64,12 +65,16 @@ public class Customer extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        String str = "Customer{" +
                 "id='" + super.getId() + '\'' +
                 "firsName='" + firsName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", specialty='" + specialty + '\'' +
-                //   account.toString()+
-                '}';
+                ", lastName='" + specialty + '\'' +
+                "} \n";
+        if (Hibernate.isInitialized(account) && account != null) {
+            str += account.toString();
+        }
+        return str;
     }
+
 }

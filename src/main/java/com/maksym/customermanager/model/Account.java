@@ -1,7 +1,10 @@
 package com.maksym.customermanager.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,16 +14,11 @@ public class Account extends BaseEntity {
     @Column(name = "account_data", nullable = false)
     private String accountData;
 
-    @OneToMany
-    @JoinColumn(name = "account_id")
-    private List<Transaction> transactions;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private List<Transaction> transactions = new ArrayList<Transaction>();
 
     @Column(name = "balance")
     private BigDecimal balance;
-
-/*    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @PrimaryKeyJoinColumn
-    private Customer customer;*/
 
     public Account() {
     }
@@ -55,13 +53,30 @@ public class Account extends BaseEntity {
         this.balance = balance;
     }
 
+
     @Override
     public String toString() {
-        return "Account{" +
+        String str = "Account{" +
                 "id='" + super.getId() + '\'' +
                 "accountData='" + accountData + '\'' +
                 ", balance=" + balance +
-                '}';
+                "}\n";
+        if (Hibernate.isInitialized(transactions) && transactions != null && transactions.size() > 0) {
+            str += transactionsToString();
+        }
+        return str;
+    }
+
+    private String transactionsToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Transactions:");
+        stringBuilder.append("\n");
+        for (Transaction transaction : transactions) {
+            stringBuilder.append("-");
+            stringBuilder.append(transaction);
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
 

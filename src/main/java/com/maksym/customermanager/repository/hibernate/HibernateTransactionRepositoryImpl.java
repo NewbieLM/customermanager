@@ -21,7 +21,9 @@ public class HibernateTransactionRepositoryImpl implements TransactionRepository
 
     public Transaction get(Long trasactionId) {
         Session session = getSession();
-        Transaction transaction = session.get(Transaction.class, trasactionId);
+        Query query = session.createQuery("FROM Transaction t JOIN FETCH t.account WHERE t.id=: id");
+        query.setParameter("id", trasactionId);
+        Transaction transaction = (Transaction) query.getSingleResult();
         session.close();
         return transaction;
     }
