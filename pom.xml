@@ -22,10 +22,20 @@
         <tomcat.plugin.version>2.2</tomcat.plugin.version>
         <liquibase.plugin.version>3.8.5</liquibase.plugin.version>
         <maven-war.plugin.version>3.2.3</maven-war.plugin.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat</artifactId>
+            <version>8.5.5</version>
+            <type>pom</type>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -54,6 +64,7 @@
         <defaultGoal>package</defaultGoal>
 
         <plugins>
+
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -69,8 +80,18 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
+
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+                <version>${maven.compiler.version}</version>
+            </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,6 +111,7 @@
                     <port>8080</port>
                 </configuration>
             </plugin>
+
         </plugins>
 
     </build>
